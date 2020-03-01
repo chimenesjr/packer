@@ -1,0 +1,28 @@
+{
+    "builders": [
+      {
+        "type": "googlecompute",
+        "account_file": "../../terraform2.json",
+        "project_id": "groovy-gearbox-267519",
+        "source_image": "windows-server-2016-dc-v20170227",
+        "disk_size": "50",
+        "machine_type": "n1-standard-1",
+        "communicator": "winrm",
+        "winrm_username": "packer_user",
+        "winrm_insecure": true,
+        "winrm_use_ssl": true,
+        "winrm_port": 5986,
+        "metadata": {
+          "windows-startup-script-cmd": "winrm quickconfig -quiet & net user /add packer_user & net localgroup administrators packer_user /add & winrm set winrm/config/service/auth @{Basic=\"true\"}"
+        },
+        "zone": "us-central1-a",
+        "tags": ["packer"]
+      }
+    ],
+    "provisioners":[
+      {
+        "type": "powershell",
+        "script": "./startup.ps1"
+      }
+    ]
+  }
