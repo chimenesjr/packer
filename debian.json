@@ -1,11 +1,14 @@
 {
+    "variables": {
+        "image": "debian-7-wheezy-v20150127"
+    },
     "builders": [
         {
             "type": "googlecompute",
-            "account_file": "../../terraform2.json",
+            "account_file": "../terraform2.json",
             "project_id": "groovy-gearbox-267519",
 
-            "source_image": "debian-7-wheezy-v20150127",
+            "source_image": "{{user `image`}}",
             "ssh_username": "packer",
             "zone": "us-east1-b"
         }

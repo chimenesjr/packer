@@ -23,6 +23,11 @@
       {
         "type": "powershell",
         "script": "./startup.ps1"
+      },
+      {
+        "type": "file",
+        "source": "./../test.html",
+        "destination": "c:/inetpub/wwwroot/"
       }
     ]
   }

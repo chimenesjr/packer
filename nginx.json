@@ -1,0 +1,36 @@
+{
+    "variables": {
+        "image": "centos-7-v20200205"
+    },
+    "builders": [
+        {
+            "image_name": "centos-nginx-{{timestamp}}",
+            "type": "googlecompute",
+            "account_file": "../terraform2.json",
+            "project_id": "groovy-gearbox-267519",
+
+            "source_image": "{{user `image`}}",
+            "ssh_username": "packer",
+            "zone": "us-east1-b"
+        }
+    ],
+    "provisioners": [
+        {
+            "type": "shell",
+            "inline": "sudo yum install -y epel-release"
+        },
+        {
+            "type": "shell",
+            "inline": ["sudo yum install -y nginx","sudo systemctl enable nginx", "sudo systemctl start nginx"]
+        },
+        {
+            "type": "file",
+            "source": "./test.html",
+            "destination": "/tmp/"
+        },
+        {
+            "type": "shell",
+            "inline": "sudo cp /tmp/test.html /usr/share/nginx/html/"
+        }
+    ]
+}
