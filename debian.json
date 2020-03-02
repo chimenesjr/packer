@@ -1,7 +1,4 @@
 {
-    "variables": {
-        "image": "debian-7-wheezy-v20150127"
-    },
     "builders": [
         {
             "type": "googlecompute",
